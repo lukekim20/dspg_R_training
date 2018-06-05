@@ -1,0 +1,166 @@
+---
+title: "Data Transformation"
+author: "Luke Kim"
+date: "June 4, 2018"
+output: 
+  html_document: 
+    keep_md: yes
+editor_options: 
+  chunk_output_type: console
+---
+```{r}
+library(dplyr)
+library(nycflights13)
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+flights
+```
+
+#Filter
+```{r}
+filter(flights, month ==1)
+```
+
+```{r}
+filter(flights, month ==1, day == 1)
+```
+
+```{r}
+jan1 <- filter (flights, month == 1, day == 1)
+```
+
+## comparisons
+
+```
+> >= ==
+```
+
+```{r}
+near(sqrt(2)^2, 2)
+```
+
+## logical operators
+
+```
+| & 
+```
+
+```{r}
+filter(flights, month == 11 | month == 12)
+```
+
+```{r}
+filter(flights, month == 11 | 12)
+```
+
+```{r}
+filter(flights, month %in% c(11, 12))
+```
+
+```{r}
+filter (flights, arr_delay <= 120, dep_delay <= 12)
+```
+
+my default filter will also drop missing values
+see the r4ds chapter for this
+
+# Arrange
+
+```{r}
+arrange(flights, year, month, day)
+```
+
+```{r}
+arrange(flights, year, month, desc(day))
+```
+
+```{r}
+arrange(flights, year, month, day)
+```
+
+```{r}
+select(flights, year, month, day)
+```
+
+```{r}
+select(flights, year:day, arr_delay)
+```
+
+```{r}
+select(flights, -year)
+```
+
+```{r}
+select(flights, -(year:day))
+```
+
+
+```{r}
+rename(flights, "tail_num" = tailnum, 'y' = year)
+```
+
+```{r}
+select(flights, time_hour, air_time, everything())
+```
+
+# Mutate
+```{r}
+flights_sml <- select(flights,
+year:day,
+ends_with('delay'),
+distance,
+air_time)
+```
+
+```{r}
+mutate(flights_sml,
+       gain = arr_delay - dep_delay,
+       speed = distance/air_time * 60,
+       hours = air_time / 60,
+       gain_per_hour = gain / hours)
+```
+
+#Summarize (summarise)
+```{r}
+summarize(flights, delay = mean(dep_delay))
+```
+
+```{r}
+by_day <- group_by(flights, year, month, day)
+```
+
+```{r}
+summarize(by_day, delay = mean(dep_delay, na.rm = TRUE))
+
+```
+
+```{r}
+by_month <- group_by(flights, year, month)
+
+by_month <- summarize(by_month,
+                      delay = mean(dep_delay, na.rm = TRUE))
+```
+
+#easiest to read and understand (using %>%)
+```{r}
+by_month <- flights %>%
+  group_by(year, month) %>% 
+  summarize(delay = mean(dep_delay, na.rm = TRUE),
+            delay_std = sd(dep_delay, na.rm = TRUE))
+```
+
+
+
+
+
+
+
+
+
+
+
