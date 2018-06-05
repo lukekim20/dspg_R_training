@@ -1,0 +1,64 @@
+---
+title: "030-"
+author: "Luke Kim"
+date: "June 5, 2018"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+##head and tails, can choose how many to see `head(chart, 20)`
+```{r}
+head(iris, 20)
+tail(iris)
+```
+
+```{r}
+class(iris)
+```
+
+```{r}
+library(tibble)
+as_tibble(iris)
+```
+to convert a chart to a library fit, do `as_tibble(iris)`
+
+##syntax
+in md if you want  `in-line` code use the back ticks
+
+```r
+code
+block
+multi-line
+```
+```{r}
+iris$Sepal.Length
+```
+
+```{r}
+iris_tbl <- as_tibble(iris)
+iris_tbl$Sepal.Length
+```
+
+```{r}
+class(iris_tbl)
+```
+```{r}
+iris_tbl['Sepal.Length']
+```
+do multiple columns with using c `iris[c('c1', 'c2')]`
+```{r}
+iris_tbl[c('Sepal.Length', 'Sepal.Width')]
+```
+
+double brackets with column position or number `iris_tbl[[1]]`
+```{r}
+iris_tbl[[1]]
+```
+
+
+
