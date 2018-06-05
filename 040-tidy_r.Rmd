@@ -71,8 +71,9 @@ spread(table2, key = type, value = count)
 
 ```{r}
 table3 %>% 
-    separate(rate, intro = c('cases', 'population'), sep = '/')
+    separate(rate, intro = c('cases', 'population'), sep = '/') 
 ```
+
 
 
 
