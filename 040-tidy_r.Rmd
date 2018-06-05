@@ -1,0 +1,78 @@
+---
+title: "040-tidyr"
+author: "Luke Kim"
+date: "June 5, 2018"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyr)
+```
+
+```{r}
+table4a
+```
+long data vs. wide data
+  - database friendly
+  - easier to locate specific data point
+  - very slow performance
+
+
+```{r}
+table4a_tidy <- gather(table4a, '1999', '2000', key = "year", value = 'cases')
+```
+
+```{r}
+library(ggplot2)
+
+ggplot(table4a_tidy) + 
+  geom_histogram(aes(x = cases, fill = country))
+
+
+```
+
+```{r}
+(table4a_tidy <- table4a %>% 
+    gather('2000', '1999', key = "year" , value = "cases"))
+
+iris %>% head()
+```
+
+```{r}
+library(magrittr) #this is what actually give you the pipe
+```
+
+```{r}
+(table4b_tidy <- table4b %>% 
+    gather('1999', '2000', key = 'year', value = 'population'))
+```
+
+```{r}
+library(dplyr)
+#use double colon to specify which library you are getting a function from
+#base::union()
+```
+
+```{r}
+left_join(x = table4a_tidy, y = table4a_tidy)
+
+```
+
+```{r}
+#spread out a content of a colun
+spread(table2, key = type, value = count)
+```
+
+```{r}
+table3 %>% 
+    separate(rate, intro = c('cases', 'population'), sep = '/')
+```
+
+
+
