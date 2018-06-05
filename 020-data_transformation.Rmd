@@ -34,7 +34,7 @@ filter(flights, month ==1, day == 1)
 jan1 <- filter (flights, month == 1, day == 1)
 ```
 
-## comparisons
+# comparisons
 
 ```
 > >= ==
@@ -44,7 +44,7 @@ jan1 <- filter (flights, month == 1, day == 1)
 near(sqrt(2)^2, 2)
 ```
 
-## logical operators
+# logical operators
 
 ```
 | & 
