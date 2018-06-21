@@ -1,0 +1,109 @@
+---
+title: "factors"
+author: "Luke Kim"
+date: "June 6, 2018"
+output: html_document
+editor_options:
+    chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#forcats helps you to easily manipulate strings.
+
+```{r}
+library(forcats)
+```
+
+```{r}
+x1 <- c("M", "T", "W", "R", "F", "s", "U")
+x2 <- c("Sa", "Su")
+```
+```{r}
+sort(x1)
+```
+
+```{r}
+proper_order <- x1
+```
+
+```{r}
+cat1 <- factor(x1, levels = proper_order)
+cat1
+```
+
+```{r}
+sort(cat1)
+```
+
+```{r}
+gss_cat
+```
+
+```{r}
+gss_cat$marital
+```
+
+
+```{r}
+gss_cat %>%
+  #directly call a funtion from a library
+  # this one is a frequency counter (not unique)
+  dplyr::count(marital)
+```
+
+##re-ordering factors
+
+```{r}
+library(ggplot2)
+library(dplyr)
+relig_sum <- gss_cat %>%
+    group_by(relig) %>%
+    summarize(
+        tvhours = mean(tvhours, na.rm = TRUE),
+        age = mean(age, na.rm = TRUE),
+        n = n()
+    ) ##calculates an average value of many values intputted
+
+ggplot(relig_sum, aes(x = tvhours, y = relig)) +
+    geom_point()
+```
+
+```{r}
+ggplot(relig_sum, aes(x = tvhours, 
+                      y = fct_reorder(relig, tvhours))) +
+    geom_point()
+```
+
+## Modifying factor values
+
+```{r}
+gss_cat %>% count(partyid)
+``` 
+```{r}
+## same as below
+#forcats::fct_recode(gss_cat$partyid)
+```
+
+```{r}
+forcats::fct_recode(gss_cat$partyid,
+                      "Rep, Strong" = "Strong republican",
+                      "Dem, Strong" = "Strong democrat")
+```
+
+```{r}
+gss_cat_recoded <- gss_cat %>%
+mutate(partyid_recode = fct_recode(
+      partyid,
+        "Rep, Strong" = "Strong republican",
+        "Dem, Strong" = "Strong democrat"))
+```
+
+```{r}
+table(gss_cat_recoded$partyid,
+        gss_cat_recoded $ partyid_recode, useNA = 'always')
+```
+
+

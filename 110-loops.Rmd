@@ -1,0 +1,141 @@
+---
+title: "110-loops"
+author: "Luke Kim"
+date: "June 8, 2018"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+#clearing the global variables list
+rm(list = ls())
+```
+
+```{r}
+f_k <- function(temp_f) {
+  ((temp_f-32) * (5/9)) + 273.15
+}
+
+k_c <- function(temp_k){
+  temp_c <- temp_k - 273.15  
+  return(temp_c)
+}
+
+f_c <- function(temp_f) {
+  temp_k <- f_k(temp_f)
+  temp_c <- k_c(temp_k)
+  return(temp_c)
+}
+```
+
+```{r}
+#making modification to this function
+
+#conditional statement
+
+k_c <- function(temp_k){
+  if (is.na(temp_k)) {
+    warning('kelvin temp is NA')
+    return(NA)
+  }
+  else if (temp_k < 0) {
+    warning('you passed in a negative kelvin number')
+    return(NA)
+    #stop()
+  }
+  else {
+    temp_c <- temp_k - 273.15  
+    return(temp_c)
+  }
+}
+
+```
+
+```{r}
+f_values <- c(0, 32, 212, -40)
+```
+
+```{r}
+for (pizza in f_values) {
+  print(pizza)
+  converted <- f_c(pizza)
+  print(converted)
+}
+```
+
+```{r}
+#1:length(f_values)
+#seq_along(f_values)
+for (i in seq_along(f_values)) {
+  print(i)
+  val <- f_values[i]
+  print(val)
+  
+  converted <- f_c(val)
+  print(converted)
+}
+```
+
+```{r}
+converted_values <- vector("double", length(f_values))
+  
+for (position in seq_along(f_values)) {
+  print(position)
+  converted <- f_c(position)
+  print(converted)
+  converted_values[position] <- converted
+}
+
+```
+
+```{r}
+converted_values
+```
+
+#apply
+
+```{r}
+library(purrr)
+```
+
+```{r}
+map(f_values, f_c)
+```
+
+```{r}
+map_dbl(f_values, f_c)
+```
+
+```{r}
+mtcars
+```
+
+```{r}
+map_chr(mtcars, class)
+```
+```{r}
+map(mtcars, summary)
+```
+
+
+# in base r
+apply family of functions
+
+```{r}
+lapply(f_values, f_c)
+```
+```{r}
+sapply(f_values, f_c)
+```
+
+```{r}
+mapply(f_c, v1, v2)
+```
+
+```{r}
+apply(mtcars, MARGIN = 1, mean)
+```
+

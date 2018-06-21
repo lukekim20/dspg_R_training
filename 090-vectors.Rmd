@@ -1,0 +1,112 @@
+---
+title: "Untitled"
+author: "Luke Kim"
+date: "June 7, 2018"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+c(1, 2, 3)
+c('a', 'b', 'c')
+c(1L, 4L, 5L)
+
+# this changes all of them inot strings
+c(4, 'd', TRUE, FALSE)
+
+my_vec <- c(1, 2, 3)
+
+my_vec[1]
+
+my_vec[2:3]
+```
+
+#
+
+```{r}
+#this drops a value at that index
+#now the list should only have 2 and 3
+my_vec[-1]
+```
+
+#lists
+```{r}
+mylist <- list(3, 4, 5, TRUE, 'letters', 5L, mtcars)
+```
+
+```{r}
+mylist[1]
+mylist[[1]]
+
+sublist <- mylist[7]
+sub_val <- mylist[[7]]
+
+class(sublist)
+
+class(sub_val)
+```
+
+```{r}
+my_name_vec <- c('a' = 1, 'b' = 2, 'c' = 3)
+
+my_name_vec[3]
+
+my_name_vec['b']
+
+my_unnamed <- c(1:10)
+
+my_labels <- letters[1:10]
+
+names(my_unnamed) <- my_labels
+
+my_unnamed[7]
+```
+
+# named lists
+
+```{r}
+my_named_list <- list(
+  'a' = 1,
+  'b' = mtcars,
+  'c' = 4L
+)
+
+
+my_name_list['a']
+```
+
+
+# vectorization / broadcasting
+
+```{r}
+my_vec <- c(1, 2, 3, 4, 5, 6)
+
+my_vec * 2
+
+my_vec * c(2, 100)
+
+length(my_vec)
+
+#dim(column name) shows you the row number as well
+
+$\sum_{i = 0}^n\dfrac{(x_i - \bar{x})}{n-1}$
+  
+```
+
+```{r}
+n_1 <- length(my_vec) -1
+x_bar<- mean(my_vec)
+```
+```{r}
+sum(((my_vec -x_bar)^2) / n_1)
+
+
+
+
+
+

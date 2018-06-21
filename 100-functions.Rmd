@@ -1,0 +1,65 @@
+---
+title: "functions"
+author: "Luke Kim"
+date: "June 8, 2018"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Converting fahrenheit to kelvin
+$k = ((f-32) * (5 / 9)) + 273.15$
+```{r}
+((10-32) * (5/9)) + 273.15
+
+((49-32) * (5/9)) + 273.15
+
+((82-32) * (5/9)) + 273.15
+```
+
+
+```{r}
+f_k <- function(temp_f) {
+  ((temp_f-32) * (5/9)) + 273.15
+}
+
+k_c <- function(temp_k){
+  temp_c <- temp_k - 273.15  
+  return(temp_c)
+}
+
+f_c <- function(temp_f) {
+  temp_k <- f_k(temp_f)
+  temp_c <- k_c(temp_k)
+  return(temp_c)
+}
+```
+
+```{r}
+#making modification to this function
+
+#conditional statement
+
+k_c <- function(temp_k){
+  if (is.na(temp_k)) {
+    warning('kelvin temp is NA')
+    return(NA)
+  }
+  else if (temp_k < 0) {
+    warning('you passed in a negative kelvin number')
+    return(NA)
+    #stop()
+  }
+  else {
+    temp_c <- temp_k - 273.15  
+    return(temp_c)
+  }
+}
+
+```
+
+
